@@ -39,3 +39,21 @@ console.log("NEW EVENT CREATED:", wait.events[0].event, wait.events[0].args);
 let eventID = wait.events[0].args.eventID;
 console.log("EVENT ID:", eventID);
 
+txn = await rsvpContract.createNewRSVP(eventID, {value: deposit});
+wait = await txn.wait();
+console.log("NEW RSVP:", wait.events[0].event, wait.events[0].args);
+
+txn = await rsvpContract.connect(address1).createNewRSVP(eventID, {value: deposit});
+wait = await txn.wait();
+console.log("NEW RSVP:", wait.events[0].event, wait.events[0].args);
+
+txn = await rsvpContract.connect(address2).createNewRSVP(eventID, {value: deposit});
+wait = await txn.wait();
+console.log("NEW RSVP:", wait.events[0].event, wait.events[0].args);
+
+
+txn = await rsvpContract.confirmAllAttendees(eventID);
+wait = await txn.wait();
+wait.events.forEach((event) => console.log("CONFIRMED:", event.args.attendeeAddress));
+
+
