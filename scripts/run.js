@@ -8,6 +8,8 @@ const rsvpContract = await rsvpContractFactory.deploy();
 await rsvpContract.deployed();
 console.log("Contracto deployed to:", rsvpContract.address);
 
+const [deployer, address1, address2] = await hre.ethers.getSigners();
+
 const runMain = async() => {
     try {
         await main();
