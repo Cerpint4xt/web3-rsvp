@@ -23,6 +23,21 @@ contract Greeter {
 */
 
 contract Web3RSVP {
+    event NewEventCreated(
+        bytes32 eventID,
+        address creatorAddress,
+        uint256 eventTimestamp,
+        uint256 maxCapacity,
+        uint256 deposit,
+        string eventDataCID
+    );
+
+    event NewRSVP(bytes32 eventId, address attendeeAddress);
+
+    event ConfirmedAttendee(bytes32 eventID, address attendeeAddress);
+
+    event DepositPaidOut(bytes32 eventID);
+
     struct CreateEvent {
         bytes32 eventId;
         string eventDataCID;
@@ -74,7 +89,20 @@ contract Web3RSVP {
         false
     );
 
+    emit NewEventCreated(
+    eventId,
+    msg.sender,
+    eventTimestamp,
+    maxCapacity,
+    deposit,
+    eventDataCID
+   );
+
    }
+
+   
+
+
    function createNewRSVP(bytes32 eventId) external payable{
     // Look up event from our mapping
     CreateEvent storage myEvent = idToEvent[eventId];
@@ -95,6 +123,8 @@ contract Web3RSVP {
     }
     
     myEvent.confirmedRSVPs.push(payable(msg.sender));
+
+    emit NewRSVP(eventId, msg.sender);
 
    }
 
@@ -134,6 +164,8 @@ contract Web3RSVP {
         myEvent.claimedRSVPs.pop();
     }
     require(sent, "Failed to send ETH");
+
+    emit ConfirmedAttendee(eventId, attendee);
 
    }
 
@@ -179,8 +211,11 @@ contract Web3RSVP {
         myEvent.paidOut = false;
     }
     require(sent, "Failed to send ETH");
+
+    emit DepositPaidOut(eventId);
+    
    }
 
-   
+
 
 }
