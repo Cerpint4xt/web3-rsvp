@@ -56,4 +56,9 @@ txn = await rsvpContract.confirmAllAttendees(eventID);
 wait = await txn.wait();
 wait.events.forEach((event) => console.log("CONFIRMED:", event.args.attendeeAddress));
 
+await hre.network.provider.send("evm_increseTime", [15778800000000]);
+
+txn = await rsvpContract.withdrawUnclaimedDeposits(eventID);
+wait = await txn.wait();
+console.log("WITHDRAWN:", wait.events[0].event, wait.events[0].args);
 
