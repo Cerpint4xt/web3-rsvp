@@ -21,3 +21,8 @@ const runMain = async() => {
 };
 
 runMain();
+
+let deposit = hre.ethers.utils.parseEther("1");
+let maxCapacity = 3;
+let timestamp = 1718926200;
+let eventDataCID = "bafybeibhwfzx6oo5rymsxmkdxpmkfwyvbjrrwcl7cekmbzlupmp5ypkyfi"; 
