@@ -25,4 +25,17 @@ runMain();
 let deposit = hre.ethers.utils.parseEther("1");
 let maxCapacity = 3;
 let timestamp = 1718926200;
-let eventDataCID = "bafybeibhwfzx6oo5rymsxmkdxpmkfwyvbjrrwcl7cekmbzlupmp5ypkyfi"; 
+let eventDataCID = "bafybeibhwfzx6oo5rymsxmkdxpmkfwyvbjrrwcl7cekmbzlupmp5ypkyfi";
+
+let txn = await rsvpContract.createNewEvent(
+    timestamp,
+    deposit,
+    maxCapacity,
+    eventDataCID
+);
+let wait = await txn.wait();
+console.log("NEW EVENT CREATED:", wait.events[0].event, wait.events[0].args);
+
+let eventID = wait.events[0].args.eventID;
+console.log("EVENT ID:", eventID);
+
