@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 /*
 import "hardhat/console.sol";
 
@@ -119,7 +119,7 @@ contract Web3RSVP {
 
     // Require that msg.sender isn't already in myEvent.confirmedRSVPs AKA hasn't already RSVP'd
     for(uint8 i = 0; i < myEvent.confirmedRSVPs.length; i++){
-        require(myEvent.claimedRSVPs[i] != msg.sender, "ALREADY CONFIRMED");
+        require(myEvent.confirmedRSVPs[i] != msg.sender, "ALREADY CONFIRMED");
     }
     
     myEvent.confirmedRSVPs.push(payable(msg.sender));
@@ -183,9 +183,10 @@ contract Web3RSVP {
 
    }
 
-   function witdrawUnclaimedDeposits(bytes32 eventId) external {
+   function withdrawUnclaimedDeposits(bytes32 eventId) external {
     // Look up event
     CreateEvent memory myEvent = idToEvent[eventId];
+    
 
     // Check that paidOut boolean still equals false AKA the money hasn't already beed paid
     require(!myEvent.paidOut, "ALREADY PAID");
@@ -215,7 +216,5 @@ contract Web3RSVP {
     emit DepositPaidOut(eventId);
     
    }
-
-
 
 }
