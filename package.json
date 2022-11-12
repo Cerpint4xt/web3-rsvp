@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "script": "node scripts/run.js"
+    "script": "node scripts/run.js",
+    "deploy": "npx hardhat run scripts/deploy.js --network mumbai"
   },
   "keywords": [],
   "author": "",
