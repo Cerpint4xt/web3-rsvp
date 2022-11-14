@@ -1,8 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 require("dotenv").config();
 
-const STAGING_ALCHEMY_URL = process.env.STAGING_INFURA_URL;
-const STAGING_PRIVATE_KEY = process.env.STAGING_PRIVATE_KEY;
+const {STAGING_ALCHEMY_URL, STAGING_PRIVATE_KEY} = process.env;
 /*
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -22,7 +21,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
   solidity: "0.8.4",
-  network:{
+  networks:{
     hardhat:{
       chainId: 1337,
     },
